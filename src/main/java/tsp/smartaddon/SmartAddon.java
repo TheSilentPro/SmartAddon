@@ -8,6 +8,7 @@ import tsp.smartaddon.listener.PlayerLeftClickListener;
 import tsp.smartaddon.listener.SuitEquipListener;
 import tsp.smartaddon.tasker.SuitTasker;
 import tsp.smartaddon.tasker.WeaponTasker;
+import tsp.smartaddon.util.Metrics;
 
 /**
  * Represents a "Smart" {@link SlimefunAddon}
@@ -22,6 +23,7 @@ public class SmartAddon {
     public static void init(SlimefunAddon addon) {
         instance = addon;
         plugin = addon.getJavaPlugin();
+        new Metrics(plugin, 9497);
 
         new EntityDamageByEntityListener(plugin);
         new PlayerLeftClickListener(plugin);
