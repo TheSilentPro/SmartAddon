@@ -1,16 +1,17 @@
-package tsp.smartaddon.tasker;
+package tsp.smartaddon.tasker.task;
 
 import me.mrCookieSlime.Slimefun.Objects.SlimefunItem.SlimefunItem;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import tsp.smartaddon.implementation.Weapon;
+import tsp.smartaddon.tasker.Task;
 
 /**
  * This tasker updates all {@link Weapon}'s
  *
  * @author TheSilentPro
  */
-public class WeaponTasker implements Runnable {
+public class WeaponTasker implements Task {
 
     @Override
     public void run() {

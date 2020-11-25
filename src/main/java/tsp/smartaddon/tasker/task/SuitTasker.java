@@ -1,4 +1,4 @@
-package tsp.smartaddon.tasker;
+package tsp.smartaddon.tasker.task;
 
 import me.mrCookieSlime.Slimefun.Objects.SlimefunItem.SlimefunItem;
 import org.bukkit.Bukkit;
@@ -6,6 +6,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import tsp.smartaddon.implementation.Suit;
+import tsp.smartaddon.tasker.Task;
 
 import java.util.List;
 
@@ -14,7 +15,7 @@ import java.util.List;
  *
  * @author TheSilentPro
  */
-public class SuitTasker implements Runnable {
+public class SuitTasker implements Task {
 
     @Override
     public void run() {

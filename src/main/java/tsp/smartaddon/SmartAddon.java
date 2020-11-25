@@ -1,13 +1,13 @@
 package tsp.smartaddon;
 
 import io.github.thebusybiscuit.slimefun4.api.SlimefunAddon;
-import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 import tsp.smartaddon.listener.EntityDamageByEntityListener;
 import tsp.smartaddon.listener.PlayerLeftClickListener;
 import tsp.smartaddon.listener.SuitEquipListener;
-import tsp.smartaddon.tasker.SuitTasker;
-import tsp.smartaddon.tasker.WeaponTasker;
+import tsp.smartaddon.tasker.Tasker;
+import tsp.smartaddon.tasker.task.SuitTasker;
+import tsp.smartaddon.tasker.task.WeaponTasker;
 import tsp.smartaddon.util.Metrics;
 
 /**
@@ -29,8 +29,8 @@ public class SmartAddon {
         new PlayerLeftClickListener(plugin);
         new SuitEquipListener(plugin);
 
-        Bukkit.getScheduler().runTaskTimer(plugin, new SuitTasker(), 0L, 1L);
-        Bukkit.getScheduler().runTaskTimer(plugin, new WeaponTasker(), 0L, 1L);
+        Tasker.syncTimer(new SuitTasker(), 1L);
+        Tasker.syncTimer(new WeaponTasker(), 1L);
     }
 
     public static SlimefunAddon getInstance() {
