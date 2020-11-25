@@ -6,7 +6,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import tsp.smartaddon.implementation.Suit;
-import tsp.smartaddon.tasker.Task;
 
 import java.util.List;
 
@@ -15,7 +14,7 @@ import java.util.List;
  *
  * @author TheSilentPro
  */
-public class SuitTasker implements Task {
+public class SuitTasker implements Runnable {
 
     @Override
     public void run() {
