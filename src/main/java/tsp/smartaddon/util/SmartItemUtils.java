@@ -14,7 +14,8 @@ import tsp.smartaddon.SmartAddon;
  */
 public class SmartItemUtils {
 
-    private static final NamespacedKey cooldown = new NamespacedKey(SmartAddon.getPlugin(), "cooldown");
+    private static final NamespacedKey cooldown = new NamespacedKey(SmartAddon.getSmartAddon().getPlugin(), "cooldown");
+    private static final NamespacedKey lastused = new NamespacedKey(SmartAddon.getSmartAddon().getPlugin(), "lastused");
 
     /**
      * Add cooldown to an item
@@ -25,7 +26,8 @@ public class SmartItemUtils {
     public static void addCooldown(ItemStack item, int time) {
         if (time > -1) {
             ItemMeta meta = item.getItemMeta();
-            PersistentDataAPI.setLong(meta, cooldown, System.currentTimeMillis());
+            PersistentDataAPI.setLong(meta, cooldown, time);
+            PersistentDataAPI.setLong(meta, lastused, System.currentTimeMillis());
             item.setItemMeta(meta);
         }
     }
@@ -34,12 +36,16 @@ public class SmartItemUtils {
      * Get the cooldown time left on an item
      *
      * @param item The item to check
-     * @param time The cooldown time
      * @return Time left. Returns -1 if there is no cooldown
      */
-    public static long getTimeLeft(ItemStack item, int time) {
+    public static long getTimeLeft(ItemStack item) {
         ItemMeta meta = item.getItemMeta();
-        long l = PersistentDataAPI.getLong(meta, cooldown, -1);
+        long l = PersistentDataAPI.getLong(meta, lastused, -1);
+        long time = PersistentDataAPI.getLong(meta, cooldown, -1);
+        if (l < 1 || time < 1) {
+            return -1;
+        }
+
         return ((l + time * 1000) - System.currentTimeMillis()) / 1000;
     }
 

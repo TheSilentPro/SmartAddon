@@ -9,43 +9,49 @@ import tsp.smartaddon.listener.SuitEquipListener;
 import tsp.smartaddon.tasker.Tasker;
 import tsp.smartaddon.tasker.task.SuitTasker;
 import tsp.smartaddon.tasker.task.WeaponTasker;
-import tsp.smartaddon.util.Metrics;
 
 /**
  * Represents a "Smart" {@link SlimefunAddon}
  *
  * @author TheSilentPro
  */
-public class SmartAddon {
+public final class SmartAddon {
 
-    private static SlimefunAddon instance;
-    private static JavaPlugin plugin;
-    private static SmartRegistry registry;
+    private static final SmartAddon smartAddon = new SmartAddon();
+    private SlimefunAddon instance;
+    private JavaPlugin plugin;
+    private SmartRegistry registry;
+
+    private SmartAddon() {}
 
     public static void init(SlimefunAddon addon) {
-        instance = addon;
-        plugin = addon.getJavaPlugin();
-        registry = new SmartRegistry();
-        new Metrics(plugin, 9497);
+        smartAddon.instance = addon;
+        smartAddon.plugin = addon.getJavaPlugin();
+        smartAddon.registry = new SmartRegistry();
 
-        new EntityDamageByEntityListener(plugin);
-        new PlayerLeftClickListener(plugin);
-        new SuitEquipListener(plugin);
-        new EntityDeathListener(plugin);
+        new EntityDamageByEntityListener(smartAddon.plugin);
+        new PlayerLeftClickListener(smartAddon.plugin);
+        new SuitEquipListener(smartAddon.plugin);
+        new EntityDeathListener(smartAddon.plugin);
 
         Tasker.syncTimer(new SuitTasker(), 1L);
         Tasker.syncTimer(new WeaponTasker(), 1L);
     }
 
-    public static SlimefunAddon getInstance() {
+    public SlimefunAddon getInstance() {
         return instance;
     }
 
-    public static JavaPlugin getPlugin() {
+    public JavaPlugin getPlugin() {
         return plugin;
     }
 
-    public static SmartRegistry getRegistry() {
+    public SmartRegistry getRegistry() {
         return registry;
     }
+
+    public static SmartAddon getSmartAddon() {
+        return smartAddon;
+    }
+
 }

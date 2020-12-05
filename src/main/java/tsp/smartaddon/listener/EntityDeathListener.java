@@ -26,7 +26,7 @@ public class EntityDeathListener implements Listener {
         if (e.getEntity().getKiller() != null) {
             Player player = e.getEntity().getKiller();;
 
-            List<ItemStack> drops = SmartAddon.getRegistry().getMobDrops().get(e.getEntityType());
+            List<ItemStack> drops = SmartAddon.getSmartAddon().getRegistry().getMobDrops().get(e.getEntityType());
 
             if (drops != null && !drops.isEmpty()) {
                 for (ItemStack drop : drops) {

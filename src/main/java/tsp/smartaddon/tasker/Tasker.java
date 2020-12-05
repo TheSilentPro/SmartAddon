@@ -19,7 +19,7 @@ import java.util.function.Consumer;
 public class Tasker {
 
     public static final BukkitScheduler SCHEDULER = Bukkit.getScheduler();
-    private static final JavaPlugin plugin = SmartAddon.getPlugin();
+    private static final JavaPlugin plugin = SmartAddon.getSmartAddon().getPlugin();
 
     // SYNC
     public static BukkitTask sync(Runnable task) {
