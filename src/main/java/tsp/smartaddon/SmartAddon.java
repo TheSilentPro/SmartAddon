@@ -4,7 +4,7 @@ import io.github.thebusybiscuit.slimefun4.api.SlimefunAddon;
 import org.bukkit.plugin.java.JavaPlugin;
 import tsp.smartaddon.listener.EntityDamageByEntityListener;
 import tsp.smartaddon.listener.EntityDeathListener;
-import tsp.smartaddon.listener.PlayerLeftClickListener;
+import tsp.smartaddon.listener.PlayerInteractListener;
 import tsp.smartaddon.listener.SuitEquipListener;
 import tsp.smartaddon.tasker.Tasker;
 import tsp.smartaddon.tasker.task.SuitTasker;
@@ -30,7 +30,7 @@ public final class SmartAddon {
         smartAddon.registry = new SmartRegistry();
 
         new EntityDamageByEntityListener(smartAddon.plugin);
-        new PlayerLeftClickListener(smartAddon.plugin);
+        new PlayerInteractListener(smartAddon.plugin);
         new SuitEquipListener(smartAddon.plugin);
         new EntityDeathListener(smartAddon.plugin);
 

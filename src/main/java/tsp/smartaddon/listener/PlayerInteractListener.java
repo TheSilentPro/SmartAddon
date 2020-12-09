@@ -10,23 +10,27 @@ import tsp.smartaddon.event.PlayerLeftClickEvent;
 import tsp.smartaddon.implementation.SmartItem;
 
 /**
- * This listener class handles the {@link PlayerLeftClickEvent}
+ * This listener class handles all {@link SmartItem} interaction handlers
  *
  * @author TheSilentPro
  */
-public class PlayerLeftClickListener implements Listener {
+public class PlayerInteractListener implements Listener {
 
-    public PlayerLeftClickListener(JavaPlugin plugin) {
+    public PlayerInteractListener(JavaPlugin plugin) {
         plugin.getServer().getPluginManager().registerEvents(this, plugin);
     }
 
     @EventHandler
-    public void onPlayerLeftClick(PlayerInteractEvent e) {
-        if (e.getAction() == Action.LEFT_CLICK_AIR || e.getAction() == Action.LEFT_CLICK_BLOCK) {
-            SlimefunItem sfitem = SlimefunItem.getByItem(e.getItem());
-            if (sfitem instanceof SmartItem) {
+    public void onPlayerInteract(PlayerInteractEvent e) {
+        SlimefunItem sfitem = SlimefunItem.getByItem(e.getItem());
+        if (sfitem instanceof SmartItem) {
+            // Fire left click listeners
+            if (e.getAction() == Action.LEFT_CLICK_AIR || e.getAction() == Action.LEFT_CLICK_BLOCK) {
                 ((SmartItem) sfitem).onLeftClick(new PlayerLeftClickEvent(e));
             }
+
+            // Fire interact listeners
+            ((SmartItem) sfitem).onInteract(e);
         }
     }
 

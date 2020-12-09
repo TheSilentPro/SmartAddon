@@ -6,6 +6,7 @@ import me.mrCookieSlime.Slimefun.Lists.RecipeType;
 import me.mrCookieSlime.Slimefun.Objects.Category;
 import me.mrCookieSlime.Slimefun.Objects.SlimefunItem.SlimefunItem;
 import me.mrCookieSlime.Slimefun.api.SlimefunItemStack;
+import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import tsp.smartaddon.event.PlayerLeftClickEvent;
 
@@ -25,6 +26,10 @@ public class SmartItem extends SlimefunItem {
     }
 
     public void onLeftClick(PlayerLeftClickEvent playerLeftClickEvent) {
+
+    }
+
+    public void onInteract(PlayerInteractEvent playerInteractEvent) {
 
     }
 
