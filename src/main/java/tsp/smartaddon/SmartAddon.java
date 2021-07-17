@@ -2,6 +2,8 @@ package tsp.smartaddon;
 
 import io.github.thebusybiscuit.slimefun4.api.SlimefunAddon;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import tsp.smartaddon.listener.EntityDamageByEntityListener;
 import tsp.smartaddon.listener.EntityDeathListener;
 import tsp.smartaddon.listener.PlayerInteractListener;
@@ -15,28 +17,30 @@ import tsp.smartaddon.tasker.task.WeaponTasker;
  *
  * @author TheSilentPro
  */
-public final class SmartAddon {
+public class SmartAddon extends JavaPlugin implements SlimefunAddon {
 
-    private static final SmartAddon smartAddon = new SmartAddon();
+    private static SmartAddon smartAddon;
     private SlimefunAddon instance;
     private JavaPlugin plugin;
     private SmartRegistry registry;
+    private Tasker tasker;
 
-    private SmartAddon() {}
+    public void init() {
+        smartAddon = this;
+        onInit();
 
-    public static void init(SlimefunAddon addon) {
-        smartAddon.instance = addon;
-        smartAddon.plugin = addon.getJavaPlugin();
-        smartAddon.registry = new SmartRegistry();
+        plugin = smartAddon.getJavaPlugin();
+        registry = new SmartRegistry();
+        tasker.syncTimer(new SuitTasker(), 1L);
+        tasker.syncTimer(new WeaponTasker(), 1L);
 
-        new EntityDamageByEntityListener(smartAddon.plugin);
-        new PlayerInteractListener(smartAddon.plugin);
-        new SuitEquipListener(smartAddon.plugin);
-        new EntityDeathListener(smartAddon.plugin);
-
-        Tasker.syncTimer(new SuitTasker(), 1L);
-        Tasker.syncTimer(new WeaponTasker(), 1L);
+        new EntityDamageByEntityListener(plugin);
+        new PlayerInteractListener(plugin);
+        new SuitEquipListener(plugin);
+        new EntityDeathListener(plugin);
     }
+
+    public void onInit() {}
 
     public SlimefunAddon getInstance() {
         return instance;
@@ -52,6 +56,18 @@ public final class SmartAddon {
 
     public static SmartAddon getSmartAddon() {
         return smartAddon;
+    }
+
+    @NotNull
+    @Override
+    public JavaPlugin getJavaPlugin() {
+        return this;
+    }
+
+    @Nullable
+    @Override
+    public String getBugTrackerURL() {
+        return null;
     }
 
 }
