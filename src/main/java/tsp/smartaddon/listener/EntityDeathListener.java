@@ -1,7 +1,6 @@
 package tsp.smartaddon.listener;
 
 import me.mrCookieSlime.Slimefun.Objects.SlimefunItem.SlimefunItem;
-import me.mrCookieSlime.Slimefun.api.Slimefun;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -43,13 +42,11 @@ public class EntityDeathListener implements Listener {
 
         if (sfi == null) {
             return true;
-        } else if (Slimefun.hasUnlocked(p, sfi, true)) {
+        } else if (sfi.canUse(p, false)) {
             if (sfi instanceof MobDrop) {
                 int random = ThreadLocalRandom.current().nextInt(100);
 
-                if (((MobDrop) sfi).getDropChance() <= random) {
-                    return false;
-                }
+                return ((MobDrop) sfi).getDropChance() > random;
             }
 
             return true;

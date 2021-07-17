@@ -17,20 +17,20 @@ import tsp.smartaddon.tasker.task.WeaponTasker;
  *
  * @author TheSilentPro
  */
-public class SmartAddon extends JavaPlugin implements SlimefunAddon {
+public class SmartAddon implements SlimefunAddon {
 
     private static SmartAddon smartAddon;
-    private SlimefunAddon instance;
     private JavaPlugin plugin;
     private SmartRegistry registry;
     private Tasker tasker;
 
-    public void init() {
+    public void init(JavaPlugin plugin) {
         smartAddon = this;
         onInit();
 
-        plugin = smartAddon.getJavaPlugin();
+        this.plugin = plugin;
         registry = new SmartRegistry();
+        tasker = new Tasker(plugin);
         tasker.syncTimer(new SuitTasker(), 1L);
         tasker.syncTimer(new WeaponTasker(), 1L);
 
@@ -42,16 +42,16 @@ public class SmartAddon extends JavaPlugin implements SlimefunAddon {
 
     public void onInit() {}
 
-    public SlimefunAddon getInstance() {
-        return instance;
-    }
-
     public JavaPlugin getPlugin() {
         return plugin;
     }
 
     public SmartRegistry getRegistry() {
         return registry;
+    }
+
+    public Tasker getTasker() {
+        return tasker;
     }
 
     public static SmartAddon getSmartAddon() {
@@ -61,7 +61,7 @@ public class SmartAddon extends JavaPlugin implements SlimefunAddon {
     @NotNull
     @Override
     public JavaPlugin getJavaPlugin() {
-        return this;
+        return plugin;
     }
 
     @Nullable

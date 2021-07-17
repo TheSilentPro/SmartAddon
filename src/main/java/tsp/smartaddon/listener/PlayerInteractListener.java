@@ -24,13 +24,13 @@ public class PlayerInteractListener implements Listener {
     public void onPlayerInteract(PlayerInteractEvent e) {
         SlimefunItem sfitem = SlimefunItem.getByItem(e.getItem());
         if (sfitem instanceof SmartItem) {
+            // Fire interact listeners
+            ((SmartItem) sfitem).onInteract(e);
+
             // Fire left click listeners
             if (e.getAction() == Action.LEFT_CLICK_AIR || e.getAction() == Action.LEFT_CLICK_BLOCK) {
                 ((SmartItem) sfitem).onLeftClick(new PlayerLeftClickEvent(e));
             }
-
-            // Fire interact listeners
-            ((SmartItem) sfitem).onInteract(e);
         }
     }
 

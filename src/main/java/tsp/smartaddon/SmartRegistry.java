@@ -17,7 +17,7 @@ public class SmartRegistry {
     public void registerMobDrop(SmartItem smartItem) {
         if (smartItem instanceof MobDrop) {
             for (EntityType entity : ((MobDrop) smartItem).getMobs()) {
-                List<ItemStack> drops = getMobDrops().getOrDefault(entity, new ArrayList<>());
+                List<ItemStack> drops = mobDrops.getOrDefault(entity, new ArrayList<>());
                 drops.addAll(((MobDrop) smartItem).getMobDrops());
                 mobDrops.put(entity, drops);
             }
